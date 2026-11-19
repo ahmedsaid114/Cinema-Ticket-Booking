@@ -1,0 +1,23 @@
+@model CinemaProject.Models.SuperAdminDashboardViewModel
+@{
+    ViewData["Title"] = "Super Admin dashboard";
+}
+
+<div class="row g-3 mb-4">
+    <div class="col-12">
+        <div class="card"><div class="card-body">
+            <h2 class="mb-1">Super Admin dashboard</h2>
+            <p class="text-body-secondary mb-0">Manage accounts and review system access.</p>
+        </div></div>
+    </div>
+    <div class="col-sm-6 col-xl-3"><div class="card h-100"><div class="card-body"><h6>Total accounts</h6><p class="fs-7 mb-0">@Model.TotalUsers</p></div></div></div>
+    <div class="col-sm-6 col-xl-3"><div class="card h-100"><div class="card-body"><h6>Customers</h6><p class="fs-7 mb-0">@Model.Customers</p></div></div></div>
+    <div class="col-sm-6 col-xl-3"><div class="card h-100"><div class="card-body"><h6>Admins</h6><p class="fs-7 mb-0">@Model.Admins</p></div></div></div>
+    <div class="col-sm-6 col-xl-3"><div class="card h-100"><div class="card-body"><h6>Super admins</h6><p class="fs-7 mb-0">@Model.SuperAdmins</p></div></div></div>
+    <div class="col-sm-6 col-xl-3"><div class="card h-100"><div class="card-body"><h6>Paid ticket orders</h6><p class="fs-7 mb-0">@ViewData["PaidOrders"]</p></div></div></div>
+</div>
+<div class="card"><div class="card-body d-flex flex-wrap align-items-center justify-content-between gap-3">
+    <div><h4 class="mb-1">Account roles</h4><p class="text-body-secondary mb-0">Promote trusted users, assign admin access, or return accounts to customer access.</p></div>
+    <a class="btn btn-primary" asp-area="Admin" asp-controller="Users" asp-action="Index">Manage users</a>
+</div></div>
+<div class="mt-3"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Open the admin operations dashboard</a></div>

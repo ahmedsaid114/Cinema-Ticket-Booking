@@ -1,0 +1,65 @@
+@model CinemaProject.ViewModels.AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Cinema dashboard";
+}
+
+<div class="row g-3 mb-3">
+    <div class="col-12">
+        <div class="card bg-transparent-50 overflow-hidden">
+            <div class="card-header position-relative bg-card">
+                <div class="position-relative z-2">
+                    <h3 class="text-primary mb-1">CineVerse dashboard</h3>
+                    <p class="mb-0">Ticket sales and payment activity</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-sm-6 col-xl-3"><div class="card h-100"><div class="card-body"><h6 class="text-700">Gross revenue</h6><p class="font-sans-serif lh-1 mb-1 fs-7">@Model.GrossRevenue.ToString("N2") EGP</p><span class="fs-10 text-500">Paid orders only</span></div></div></div>
+                    <div class="col-sm-6 col-xl-3"><div class="card h-100"><div class="card-body"><h6 class="text-700">Paid orders</h6><p class="font-sans-serif lh-1 mb-1 fs-7">@Model.PaidOrders</p><span class="fs-10 text-500">Confirmed by Stripe</span></div></div></div>
+                    <div class="col-sm-6 col-xl-3"><div class="card h-100"><div class="card-body"><h6 class="text-700">Tickets sold</h6><p class="font-sans-serif lh-1 mb-1 fs-7">@Model.TicketsSold</p><span class="fs-10 text-500">Across paid orders</span></div></div></div>
+                    <div class="col-sm-6 col-xl-3"><div class="card h-100"><div class="card-body"><h6 class="text-700">Pending payments</h6><p class="font-sans-serif lh-1 mb-1 fs-7">@Model.PendingOrders</p><span class="fs-10 text-500">Awaiting payment confirmation</span></div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-12">
+        <div class="card h-100">
+            <div class="card-header d-flex flex-between-center">
+                <h5 class="mb-0">Recent ticket orders</h5>
+                <a asp-area="Admin" asp-controller="Movies" asp-action="Index" class="btn btn-falcon-default btn-sm">Manage movies</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive scrollbar">
+                    <table class="table table-dashboard mb-0 table-borderless fs-10">
+                        <thead class="bg-body-tertiary"><tr><th>Order</th><th>Customer</th><th>Movie</th><th class="text-center">Tickets</th><th class="text-end">Total</th><th>Status</th><th>Date</th></tr></thead>
+                        <tbody>
+                        @if (Model.RecentOrders.Count == 0)
+                        {
+                            <tr><td colspan="7" class="text-center text-600 py-5">No ticket orders yet. Paid purchases will appear here.</td></tr>
+                        }
+                        else
+                        {
+                            @foreach (var order in Model.RecentOrders)
+                            {
+                                var statusClass = order.Status == "Paid" ? "success" : order.Status == "Pending" ? "warning" : "secondary";
+                                <tr class="border-bottom border-200">
+                                    <td class="fw-semi-bold">#@order.OrderId</td>
+                                    <td>@order.CustomerName</td>
+                                    <td>@order.MovieName</td>
+                                    <td class="text-center">@order.Quantity</td>
+                                    <td class="text-end fw-semi-bold">@order.TotalAmount.ToString("N2") @order.Currency</td>
+                                    <td><span class="badge badge-subtle-@statusClass rounded-pill">@order.Status</span></td>
+                                    <td>@order.CreatedUtc.ToLocalTime().ToString("dd MMM yyyy, HH:mm")</td>
+                                </tr>
+                            }
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

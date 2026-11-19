@@ -1,0 +1,24 @@
+@model IReadOnlyList<CinemaProject.Models.UserRoleRowViewModel>
+@{
+    ViewData["Title"] = "Manage roles";
+}
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div><h3 class="mb-1">Users and roles</h3><p class="mb-0 text-body-secondary">Each account has one active role.</p></div>
+        <a class="btn btn-outline-secondary btn-sm" asp-area="Admin" asp-controller="SuperAdmin" asp-action="Index">Back to Super Admin</a>
+    </div>
+    @if (TempData["SuccessMessage"] is string message)
+    {
+        <div class="alert alert-success m-3 mb-0">@message</div>
+    }
+    <div class="table-responsive"><table class="table mb-0">
+        <thead><tr><th>Name</th><th>Email</th><th>Current role</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var user in Model)
+        {
+            <tr><td>@user.Name</td><td>@user.Email</td><td><span class="badge bg-primary-subtle text-primary">@user.Role</span></td><td class="text-end"><a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@user.Id">Change role</a></td></tr>
+        }
+        </tbody>
+    </table></div>
+</div>

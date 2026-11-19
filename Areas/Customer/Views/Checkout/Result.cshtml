@@ -1,0 +1,23 @@
+@model CinemaProject.ViewModels.TicketPaymentResultViewModel
+@{
+    ViewData["Title"] = Model.IsPaid ? "Payment confirmed" : "Payment processing";
+}
+<section class="content-section payment-result">
+    <span class="eyebrow">CINEVERSE TICKET ORDER</span>
+    @if (Model.IsPaid)
+    {
+        <h1>Payment confirmed</h1>
+        <p>Your tickets for <strong>@Model.MovieName</strong> are paid.</p>
+    }
+    else
+    {
+        <h1>Payment is processing</h1>
+        <p>We have not received confirmation yet. Refresh this page in a moment or contact the cinema if you were charged.</p>
+    }
+    <div class="payment-summary">
+        <span>Order #@Model.OrderId</span>
+        <span>@Model.Quantity ticket(s)</span>
+        <strong>@Model.TotalAmount.ToString("N2") @Model.Currency</strong>
+    </div>
+    <a class="button button-gold" asp-area="Customer" asp-controller="Movies" asp-action="Index">Browse movies <span>↗</span></a>
+</section>

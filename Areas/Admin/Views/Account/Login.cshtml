@@ -1,0 +1,31 @@
+@model CinemaProject.ViewModels.AdminLoginViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Admin sign in";
+}
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - CineVerse</title>
+    <link href="~/assets/css/theme.css" rel="stylesheet" />
+</head>
+<body class="bg-body-tertiary">
+<main class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card shadow-sm" style="max-width: 440px; width: 100%;">
+        <div class="card-body p-4 p-md-5">
+            <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="text-decoration-none"><h2 class="text-primary mb-1">CineVerse</h2></a>
+            <p class="text-body-secondary mb-4">Admin and Super Admin dashboard sign in</p>
+            <form asp-area="Admin" asp-controller="Account" asp-action="Login" method="post">
+                <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <div class="mb-3"><label asp-for="Email" class="form-label">Email</label><input asp-for="Email" class="form-control" autocomplete="username" /><span asp-validation-for="Email" class="text-danger"></span></div>
+                <div class="mb-4"><label asp-for="Password" class="form-label">Password</label><input asp-for="Password" class="form-control" autocomplete="current-password" /><span asp-validation-for="Password" class="text-danger"></span></div>
+                <button type="submit" class="btn btn-primary w-100">Sign in</button>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>

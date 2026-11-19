@@ -1,0 +1,31 @@
+@model CinemaProject.Models.CustomerDashboardViewModel
+@{
+    ViewData["Title"] = "My dashboard";
+}
+
+<section class="container py-5">
+    <div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4">
+        <div><p class="text-uppercase small mb-1">Customer account</p><h1 class="mb-1">Welcome, @Model.Name</h1><p class="text-secondary mb-0">@Model.Email</p></div>
+        <a class="btn btn-dark" asp-area="Customer" asp-controller="Movies" asp-action="Index">Browse movies</a>
+    </div>
+    <div class="card border-0 shadow-sm">
+        <div class="card-body"><h2 class="h4">My ticket orders</h2>
+            @if (Model.Orders.Count == 0)
+            {
+                <p class="text-secondary mb-0">Your ticket orders will appear here after checkout.</p>
+            }
+            else
+            {
+                <div class="table-responsive"><table class="table align-middle mb-0">
+                    <thead><tr><th>Order</th><th>Movie</th><th>Tickets</th><th>Total</th><th>Status</th><th>Date</th></tr></thead>
+                    <tbody>
+                    @foreach (var order in Model.Orders)
+                    {
+                        <tr><td>#@order.OrderId</td><td>@order.MovieName</td><td>@order.Quantity</td><td>@order.TotalAmount.ToString("N2") @order.Currency</td><td>@order.Status</td><td>@order.CreatedUtc.ToLocalTime().ToString("dd MMM yyyy, HH:mm")</td></tr>
+                    }
+                    </tbody>
+                </table></div>
+            }
+        </div>
+    </div>
+</section>

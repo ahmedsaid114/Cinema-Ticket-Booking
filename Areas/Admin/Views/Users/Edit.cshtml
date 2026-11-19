@@ -1,0 +1,25 @@
+@model CinemaProject.Models.EditUserRoleViewModel
+@{
+    ViewData["Title"] = "Change user role";
+}
+
+<div class="card" style="max-width: 680px">
+    <div class="card-header"><h3 class="mb-0">Change role</h3></div>
+    <div class="card-body">
+        <p><strong>@Model.Name</strong><br /><span class="text-body-secondary">@Model.Email</span></p>
+        <form asp-action="Edit" method="post">
+            <input asp-for="Id" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <label asp-for="SelectedRole" class="form-label">Role</label>
+            <select asp-for="SelectedRole" class="form-select">
+                @foreach (var role in (string[])ViewBag.Roles)
+                {
+                    <option value="@role">@role</option>
+                }
+            </select>
+            <span asp-validation-for="SelectedRole" class="text-danger"></span>
+            <p class="small text-body-secondary mt-3">Super Admin access controls role management. Admin access controls the cinema catalog and sales dashboard.</p>
+            <div class="d-flex gap-2 mt-4"><button class="btn btn-primary" type="submit">Save role</button><a class="btn btn-outline-secondary" asp-action="Index">Cancel</a></div>
+        </form>
+    </div>
+</div>
