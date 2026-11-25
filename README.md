@@ -1,6 +1,15 @@
-# TaskCinema
+# TaskCinema - Cinema ticket booking
 
 Cinema MVC application using ASP.NET Core Identity, role-based access, and SQL Server.
+
+## Features
+
+- Browse movies, actors and categories
+- Ticket checkout with Stripe (test mode), charged in EGP
+- Customer accounts with ASP.NET Core Identity and email confirmation
+- Role-based areas: Customer, Admin and SuperAdmin dashboards
+- Admin management of movies and categories
+- Generic repository and Unit of Work over SQL Server
 
 ## Run
 
